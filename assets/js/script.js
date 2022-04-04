@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () { //when the DOM finis
     for (let button of buttons){ //go through the buttons array and return each element in the array wich will be stored in that variable button on each iteration
         button.addEventListener("click", function(){ // button represents an individual button element
             if(this.getAttribute("data-type") === "submit"){
-                alert("You clicked Submit!");
+                checkAnswer();
             }else{
                 let gameType = this.getAttribute("data-type"); //this will tell us what game type we are wanting to run.
                 runGame(gameType);
@@ -39,12 +39,42 @@ function runGame(gameType){ //passing game type as an argument
 
 }
 
+/**
+ * Checks the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
 function checkAnswer(){
+
+    let userAnswer = parseInt(document.getElementById("answer-box").value); // we are checking the asnwer, we're retriving it from the dom. 
+    let calculatedAnswer = calculateCorrectAnswer();  // it's an array. We are getting the correct answer from the calculateCorrectAnswer function an asign it to variable calculatedAnswer
+    let isCorrect = userAnswer === calculatedAnswer[0]; // setting an isCorrect wich will be true or false depending on whether the user's answer matches the correct answer.
+
+    if (isCorrect){
+        alert("Hey! You got it right! :D");
+    }else{
+        alert(`Awww.....  you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`); //pulling the first value of the calculatedAnswer array
+    }
+
+    runGame(calculatedAnswer[1]); //running another game of the same type.
 
 }
 
+/**
+ * Gets the operands (the numbers) and the operator (plus, minus , multiply , division)
+ * directyly from the dom, and returns the correct answer.
+ */
 function calculateCorrectAnswer(){
 
+    let operand1 = parseInt(document.getElementById('operand1').innerText);  //reading values from the DOM and storing them in variables , parsInt its to store the value not as the default string but instead a number.
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
+
+    if( operator === "+"){
+        return [operand1 + operand2, "addition"];
+    }else{
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}.Aborting!`;
+    }
 }
 
 function incrementScore(){
