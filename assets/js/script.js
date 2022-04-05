@@ -2,7 +2,7 @@
 // Get the button elements and add event listeners to them
 
 document.addEventListener("DOMContentLoaded", function () { //when the DOM finish loading the code in this function will execute
-    let buttons = document.getElementsByTagName("button"); // we have 4 buttons and I get them on an array
+    let buttons = document.getElementsByTagName("button"); // we have 4 buttons and I get them on an array saved in the variable call buttons
 
     for (let button of buttons){ //go through the buttons array and return each element in the array wich will be stored in that variable button on each iteration
         button.addEventListener("click", function(){ // button represents an individual button element
@@ -15,6 +15,12 @@ document.addEventListener("DOMContentLoaded", function () { //when the DOM finis
         })
     }
 
+    document.getElementById("answer-box").addEventListener("keydown", function(event){ // is listening when a key is getting pressed , we have a function with and object event
+        if(event.key === "Enter"){ //we check if the key pressed was Enter then run checkAnswer() function
+            checkAnswer();
+        }
+    })
+
     runGame("addition");
 
 })
@@ -25,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () { //when the DOM finis
  * and after the user's answer has been processed
  */
 function runGame(gameType){ //passing game type as an argument
+
+    document.getElementById("answer-box").value = ""; // to empty the answer box each time we finish playing a game
+    document.getElementById("answer-box").focus(); // each time the game is called the answer box will get automatically selected with no need to go with the mouse and click 
     
     // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
