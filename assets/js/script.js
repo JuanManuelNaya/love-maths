@@ -32,7 +32,9 @@ function runGame(gameType){ //passing game type as an argument
 
     if(gameType === "addition"){ //checking parameter  otherwise throw an error
         displayAdditionQuestion(num1, num2);
-    }else{
+    }else if (gameType === "multiply"){
+        displayMultiplyQuestion(num1, num2);
+    } else{
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}.Aborting!`;
     }
@@ -72,8 +74,10 @@ function calculateCorrectAnswer(){
     let operator = document.getElementById('operator').innerText;
 
     if( operator === "+"){
-        return [operand1 + operand2, "addition"];
-    }else{
+        return [operand1 + operand2, "addition"]; //return the sumatory of operand1 + operand2 and runs the addition game again
+    }else if( operator === "x"){
+        return [operand1 * operand2, "multiply"]; // return the multiplication of operand1 * operand2 and runs the multiplication game again
+    } else{
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}.Aborting!`;
     }
@@ -105,8 +109,11 @@ function displaySubtractQuestion(){
 
 }
 
-function displayMultiplyQuestion(){
 
+function displayMultiplyQuestion(operand1, operand2){
+    document.getElementById('operand1').textContent = operand1; //we interrogating our HTML we're going to get the element that has the ID of operand1 , and we set his text content to operand1
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
 }
 
 function displayDivisionQuestion(){
